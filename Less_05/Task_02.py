@@ -50,11 +50,6 @@ def sum_hex(a, b, rev=False):
 
 
 def mult_hex(a, b):
-    """
-        работает не верно!
-
-    """
-
     i = 0
     res = list()  # результат
     tmp1 = call.deque()
@@ -79,11 +74,9 @@ def mult_hex(a, b):
         res = list(sum_hex(tmp2, res, True))
         i += 1
 
-    if next_val > 0:  # добавляем в начало след разряд, если остался
-        res.insert(0, numbers_to_hex_dic[next_val])
-
     res.reverse()
     return "".join(res)
+
 
 print("="*20)
 if action == "+":
