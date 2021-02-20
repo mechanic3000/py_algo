@@ -54,35 +54,38 @@ def mult_hex(a, b):
         работает не верно!
 
     """
-    pass
-    # i = 0
-    # res = list()  # результат
-    # while i < len(a):
-    #     k = 0
-    #     next_val = 0
-    #     tmp1 = call.deque('0' for _ in range(i))  # временное хранение 1
-    #     tmp2 = list()  # (промежуточный результат)
-    #     while k < len(b):
-    #         x = hex_to_numbers_dic.get(a[i]) * hex_to_numbers_dic.get(b[k])
-    #         tmp2.append(numbers_to_hex_dic[(next_val + x) % 16])
-    #         next_val = x // 16
-    #         if next_val > 0:  # добавляем в начало след разряд, если остался
-    #             tmp1.append(numbers_to_hex_dic[next_val])
-    #         next_val = 0
-    #         k += 1
-    #     i += 1
-    #     tmp2 = list(sum_hex(list(tmp1), tmp2, True))
-    #     if next_val > 0:  # добавляем в начало след разряд, если остался
-    #         res.insert(0, numbers_to_hex_dic[next_val])
-    #     res = list(sum_hex(tmp2, res))
-    #     print(res)
-    #
-    # if next_val > 0:  # добавляем в начало след разряд, если остался
-    #     res.insert(0, numbers_to_hex_dic[next_val])
-    #
-    # return "".join(res)
 
+    i = 0
+    res = list()  # результат
+    tmp1 = call.deque()
+    tmp2 = call.deque()
+    while i < len(a):
+        k = 0
+        next_val = 0
+        tmp2.clear()
+        while k < len(b):
+            tmp1.clear()
+            tmp1.extend('0' for _ in range(k))
+            x = hex_to_numbers_dic.get(a[i]) * hex_to_numbers_dic.get(b[k])
+            tmp1.append(numbers_to_hex_dic[(next_val + x) % 16])
+            next_val = x // 16
+            if next_val > 0:  # добавляем в начало след разряд, если остался
+                tmp1.append(numbers_to_hex_dic[next_val])
+            next_val = 0
+            k += 1
+            tmp2 = call.deque(sum_hex(tmp1, tmp2, True))
 
+        tmp2.extendleft("0" for _ in range(i))
+        res = list(sum_hex(tmp2, res, True))
+        i += 1
+
+    if next_val > 0:  # добавляем в начало след разряд, если остался
+        res.insert(0, numbers_to_hex_dic[next_val])
+
+    res.reverse()
+    return "".join(res)
+
+print("="*20)
 if action == "+":
     print(sum_hex(a, b).upper())
 elif action == "*":
