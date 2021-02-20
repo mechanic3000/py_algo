@@ -21,60 +21,71 @@ a.reverse()
 b.reverse()
 
 hex_to_numbers_dic = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8,
-               "9": 9, "a": 10, "b": 11, "c": 12, "d": 13, "e": 14, "f": 15}
+                      "9": 9, "a": 10, "b": 11, "c": 12, "d": 13, "e": 14, "f": 15}
 numbers_to_hex_dic = {val: str(key) for key, val in hex_to_numbers_dic.items()}
 
 
-def sum_hex(a, b):
+def sum_hex(a, b, rev=False):
     if len(a) > len(b):
         b += ['0' for _ in range(len(a) - len(b))]
     elif len(b) > len(a):
         a += ['0' for _ in range(len(b) - len(a))]
     i = 0
-    print(f'{a},{b}')
     next_val = 0
     res = call.deque()
     while i < len(a):
-        x = hex_to_numbers_dic.get(a[i])+hex_to_numbers_dic.get(b[i])  # сложение текущего порядка
+        x = hex_to_numbers_dic.get(a[i]) + hex_to_numbers_dic.get(b[i])  # сложение текущего порядка
         res.appendleft(numbers_to_hex_dic[(next_val + x) % 16])
-        next_val = x // 16   # перенос на следующий разряд
+        next_val = x // 16  # перенос на следующий разряд
         i += 1
 
     if next_val > 0:  # добавляем в начало след разряд, если остался
         res.appendleft(numbers_to_hex_dic[next_val])
-    print(res)
-    return "".join(res).upper()
+
+    if not rev:
+        return "".join(res)
+    else:
+        res.reverse()
+        return "".join(res)
 
 
 def mult_hex(a, b):
+    """
+        работает не верно!
+
+    """
     pass
-#     i = 0
-#     res = call.deque()
-#     tmp2 = list()  # временное хранение 2
-#     while i < len(a):
-#         k = 0
-#         next_val = 0
-#         tmp1 = call.deque('0' for _ in range(i))  # временное хранение 1
-#         while k < len(b):
-#             x = hex_to_numbers_dic.get(a[i]) * hex_to_numbers_dic.get(b[k])
-#             tmp1.append(numbers_to_hex_dic[(next_val + x) % 16])
-#             next_val = x // 16
-#             k += 1
-#         i += 1
-#         print(tmp1, tmp2, sep=" ++++++  ")
-#         tmp2 = list(sum_hex(list(tmp1), list(tmp2)))
-#
-#     res = call.deque(tmp2)
-#
-#     if next_val > 0:  # добавляем в начало след разряд, если остался
-#         res.appendleft(numbers_to_hex_dic[next_val])
-#
-#     return "".join(res).upper()
+    # i = 0
+    # res = list()  # результат
+    # while i < len(a):
+    #     k = 0
+    #     next_val = 0
+    #     tmp1 = call.deque('0' for _ in range(i))  # временное хранение 1
+    #     tmp2 = list()  # (промежуточный результат)
+    #     while k < len(b):
+    #         x = hex_to_numbers_dic.get(a[i]) * hex_to_numbers_dic.get(b[k])
+    #         tmp2.append(numbers_to_hex_dic[(next_val + x) % 16])
+    #         next_val = x // 16
+    #         if next_val > 0:  # добавляем в начало след разряд, если остался
+    #             tmp1.append(numbers_to_hex_dic[next_val])
+    #         next_val = 0
+    #         k += 1
+    #     i += 1
+    #     tmp2 = list(sum_hex(list(tmp1), tmp2, True))
+    #     if next_val > 0:  # добавляем в начало след разряд, если остался
+    #         res.insert(0, numbers_to_hex_dic[next_val])
+    #     res = list(sum_hex(tmp2, res))
+    #     print(res)
+    #
+    # if next_val > 0:  # добавляем в начало след разряд, если остался
+    #     res.insert(0, numbers_to_hex_dic[next_val])
+    #
+    # return "".join(res)
 
 
 if action == "+":
-    print(sum_hex(a, b))
+    print(sum_hex(a, b).upper())
 elif action == "*":
-    print(mult_hex(a, b))
+    print(mult_hex(a, b).upper())
 else:
     print("Действие введено неверно")
