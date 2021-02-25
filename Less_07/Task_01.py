@@ -15,7 +15,7 @@ def bubble_sort(data):
                 data[k], data[k+1] = data[k+1], data[k]
 
 
-array = [rnd.randint(-100, 100) for _ in range(10)]
+array = [rnd.randint(-100, 99) for _ in range(10)]
 print(array)
 bubble_sort(array)
 print(array)
