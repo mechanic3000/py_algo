@@ -35,6 +35,7 @@ def merge_sort(data):
         return result
 
 
+# array = [rnd.randint(0, 4999)/100 for _ in range(11)]
 array = [rnd.randint(0, 49) for _ in range(11)]
 print(array)
 array = merge_sort(array)
