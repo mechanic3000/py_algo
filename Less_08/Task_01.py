@@ -15,8 +15,9 @@ def substr_counter(string):
     len_string = len(string)
     while k < len_string:
         for i in range(0, len_string+1):
-            trash.add(string[i:i + k])
+            # trash.add(string[i:i + k])
             # trash.add(hl.sha1(string[i:i + k].encode('utf-8')).hexdigest())
+            trash.add(hash(string[i:i + k]))
         k += 1
 
     return len(trash)-1
@@ -31,7 +32,7 @@ print(substr_counter(a), timeit.timeit('substr_counter(a)', number=100, globals=
 print(substr_counter(b), timeit.timeit('substr_counter(b)', number=100, globals=globals()), sep="===")
 print(substr_counter(c), timeit.timeit('substr_counter(c)', number=100, globals=globals()), sep="===")
 
-# с хэш функцией
+# с хэш функцией sha1
 # 11===0.0045081819999999995
 # 6===0.0068941050000000045
 # 20===0.007874210999999999
@@ -40,3 +41,8 @@ print(substr_counter(c), timeit.timeit('substr_counter(c)', number=100, globals=
 # 11===0.0013855940000000004
 # 6===0.0008421090000000006
 # 20===0.0022175169999999987
+
+# с функцией hash()
+# 11===0.0010026969999999968
+# 6===0.0006147209999999986
+# 20===0.0016023930000000006
