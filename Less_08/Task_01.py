@@ -16,8 +16,8 @@ def substr_counter(string):
     while k < len_string:
         for i in range(0, len_string+1):
             # trash.add(string[i:i + k])
-            # trash.add(hl.sha1(string[i:i + k].encode('utf-8')).hexdigest())
-            trash.add(hash(string[i:i + k]))
+            trash.add(hl.sha1(string[i:i + k].encode('utf-8')).hexdigest())
+            # trash.add(hash(string[i:i + k]))
         k += 1
 
     return len(trash)-1
@@ -25,12 +25,19 @@ def substr_counter(string):
 
 a = "ababс"  # a b c ab ba bc aba bab abc abab babc  - 11
 b = "abab"  # a b ab ba aba bab - 6
-c = "abcdef"  # a b c d e f ab bc cd de ef abc bcd cde def abcd bcde cdef abcde bcdef - 20
+c = "abcc"  # a b c d e f ab bc cd de ef abc bcd cde def abcd bcde cdef abcde bcdef - 20
+d = """1. Определить количество различных подстрок с использованием хеш-функции. Задача: на вход функции дана строка,
+требуется вернуть количество различных подстрок в этой строке.
+Примечание: в сумму не включаем пустую строку и строку целиком.
+"""
 
-
-print(substr_counter(a), timeit.timeit('substr_counter(a)', number=100, globals=globals()), sep="===")
-print(substr_counter(b), timeit.timeit('substr_counter(b)', number=100, globals=globals()), sep="===")
+# print(substr_counter(a), timeit.timeit('substr_counter(a)', number=100, globals=globals()), sep="===")
+# print(substr_counter(b), timeit.timeit('substr_counter(b)', number=100, globals=globals()), sep="===")
+# print(substr_counter(c), timeit.timeit('substr_counter(c)', number=100, globals=globals()), sep="===")
 print(substr_counter(c), timeit.timeit('substr_counter(c)', number=100, globals=globals()), sep="===")
+# 27576===5.975873813
+# 27576===6.371169174
+# 27576===28.103979652
 
 # с хэш функцией sha1
 # 11===0.0045081819999999995
